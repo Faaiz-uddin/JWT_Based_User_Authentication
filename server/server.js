@@ -29,5 +29,5 @@ app.use(cookieParser()); // Use cookie-parser middleware
 app.use("/api", authRoute);
 
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+  console.log(`server is listening on port ${PORT}`);
 });
