@@ -2,4 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-
+.container {
+    max-width: 1100px;
+    margin: 0 auto; /* Center horizontally */
+}
+.homepage {
+    text-align: center; /* Center text horizontally */
+    padding: 20px; /* Add some padding for spacing */
+  
+    /* Style the h4 element */
+    h4{
+      font-size: 18px;
+      color: #333; /* Text color */
+    }
+  
+    /* Style the span element within h4 */
+    h4 span {
+      font-weight: bold;
+    }
+  
+    /* Style the h2 element within span */
+    h4 span h2 {
+      font-size: 24px;
+      color: #007bff; /* Blue color for username */
+    }
+  
+    /* Style the button */
+    button {
+      background-color: #007bff; /* Blue background color */
+      color: #fff; /* Text color */
+      padding: 10px 20px; /* Padding for button size */
+      border: none; /* Remove button border */
+      cursor: pointer; /* Add pointer cursor on hover */
+    }
+  
+    /* Add some spacing between elements */
+    h4,
+    button {
+      margin: 10px 0;
+    }
+  }
+  
+  /* Style the button on hover */
+  .homepage button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
