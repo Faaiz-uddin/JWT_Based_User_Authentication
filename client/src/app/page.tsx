@@ -66,7 +66,8 @@ const Home = () => {
       
      
 
-      { <ul>
+      <nav className="navbar" >
+      <ul>
         <li>
           <Link href="/">Home</Link>
         </li>
@@ -76,13 +77,9 @@ const Home = () => {
         <li>
           <Link href="/blog/blog">Blog Post</Link>
         </li>
-        {/* <li>
-          <Link href="/pages/login">Log In</Link>
-        </li>
-        <li>
-          <Link href="/pages/signup">Sign Up</Link>
-        </li> */}
-      </ul> }
+        {/* Add more navigation items as needed */}
+      </ul>
+    </nav> 
       <div className="homepage">
         <h4>
           Welcome <span><h2>{username}</h2></span>
