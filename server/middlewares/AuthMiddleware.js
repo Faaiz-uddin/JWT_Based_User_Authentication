@@ -6,22 +6,24 @@ const SECRET_KEY = process.env.TOKEN_KEY;
 
 
 
-const userVerification  = async (req, res) => {
-    const token = req.cookies.token
-    if (!token) {
-        return res.json({ message: "A token is required for authentication" });  
-      }
-      try {
-        const decoded = jwt.verify(token, SECRET_KEY);
-        console.log(decoded);
-        if (decoded) return res.json({ status: true, user: decoded.email })
-        else return res.json({ status: false })
-        //req.user = decoded;
-      } catch (err) {
-        return res.status(401).send("Invalid Token");
-      }
-   
-    
-  };
+const userVerification = async (req, res) => {
+  const token = req.cookies.token;
+  //console.log("Faaiz"+token);
+  
+  if (!token) {
+    return res.status(401).json({ message: "A token is required for authentication" });
+  }
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+
+    if (decoded) {
+      return res.json({ status: true, email: decoded.email,fname: decoded.fname ,lname: decoded.lname });
+    } else {
+      return res.status(401).json({ message: "Invalid Token" });
+    }
+  } catch (err) {
+    return res.status(401).json({ message: "Invalid Token" });
+  }
+};
   
   module.exports = { userVerification  };

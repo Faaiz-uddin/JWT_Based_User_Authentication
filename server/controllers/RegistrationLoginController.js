@@ -46,29 +46,36 @@ const Login = async (req, res) => {
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errorss.array() });
+      return res.status(400).json({ errors: errors.array() }); // Fix typo here
     }
+
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.json({ message: "Incorrect  email" });
-    }
-    const auth = await bcrypt.compare(password, user.password);
-    if (!auth) {
-      return res.json({ message: "Incorrect password " });
+      return res.status(401).json({ message: "Incorrect email" }); // Return a 401 status for authentication failure
     }
 
-    console.log(user);
+    const auth = await bcrypt.compare(password, user.password);
+    if (!auth) {
+      return res.status(401).json({ message: "Incorrect password" }); // Return a 401 status for authentication failure
+    }
+
     // Create a JWT token with user_id and email as claims
     const token = jwt.sign(
-        { user_id: user._id, email: user.email },
-        SECRET_KEY,
-        { expiresIn: "2h" }
-      );
-      res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 }); // Cookie expires in 2 hours    
-    // Send a success response
-    res.json({ message: "Login successful" });
-    console.log(token);
+      { user_id: user._id, 
+        email: user.email,
+        fname: user.firstname,
+        lname: user.lastname
+      },
+      SECRET_KEY,
+      { expiresIn: "2h" }
+    );
+      
+    // Set the token as a cookie
+    res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 }); // Cookie expires in 2 hours    
+
+    // Send a success response along with the token
+    res.json({ message: "Login successful", token }); // Include the token in the response
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

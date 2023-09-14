@@ -20,7 +20,12 @@ mongoose
   })
   .catch((err) => console.error(err));
 
-app.use(cors()); // Enable CORS for your API if needed
+//app.use(cors()); // Enable CORS for your API if needed
+// Allow requests from http://localhost:3000 with credentials
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(express.json()); // Apply express.json() middleware before routes
 // Middleware for parsing URL-encoded request bodies
 app.use(express.urlencoded({ extended: true }));
